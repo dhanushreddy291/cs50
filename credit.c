@@ -52,7 +52,7 @@ int main()
             //Checks if Card is a valid American Express Card
             if (size == 15 && (hundredsplace == 34 || hundredsplace == 37))
             {
-                printf("AMERICAN EXPRESS\n");
+                printf("AMEX\n");
                 return 0;
 
             }
