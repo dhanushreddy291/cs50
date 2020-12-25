@@ -73,7 +73,7 @@ int main()
         }
     }
 
-    //Prints Invalid if card is not a Valid Credit Card.
+    //Prints Invalid if card doesnot satisfy any of the above Conditions.
     printf("INVALID\n");
     return 0;
 
