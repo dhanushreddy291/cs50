@@ -58,12 +58,11 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     {
         for(int j = 0; j < width; j++)
         {
-            double sum[3] = {0};
-            int counter = 0;
+            int sum[3] = {0, 0, 0}, counter = 0;
             
-            for (int k = i - 1; k > 0 && k < height && k < i + 2; k++)
+            for (int k = i - 1; k >= 0 && k < height && k < i + 2; k++)
             {
-                for (int l = j - 1; l > 0 && l < width && l < j + 2; l++)
+                for (int l = j - 1; l >= 0 && l < width && l < j + 2; l++)
                 {
                     sum[0] += image[k][l].rgbtBlue;
                     sum[1] += image[k][l].rgbtGreen;
@@ -72,9 +71,37 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 }
             }
             
-            tempimage[i][j].rgbtBlue = round(sum[0] / ((1.00) * counter));
-            tempimage[i][j].rgbtGreen = round(sum[1] /((1.00) * counter));
-            tempimage[i][j].rgbtRed = round(sum[2] / ((1.00) * counter));
+            sum[0] = round(sum[0] / ((1.00) * counter));
+            sum[1] = round(sum[1] / ((1.00) * counter));
+            sum[2] = round(sum[2] / ((1.00) * counter));
+            
+            
+            if(sum[0] > 255)
+            {
+                tempimage[i][j].rgbtBlue = 255;
+            }
+            else
+            {
+                tempimage[i][j].rgbtBlue = sum[0];
+            }
+            
+            if(sum[1] > 255)
+            {
+                tempimage[i][j].rgbtGreen = 255;
+            }
+            else
+            {
+                tempimage[i][j].rgbtGreen = sum[1];
+            }
+            
+            if(sum[2] > 255)
+            {
+                tempimage[i][j].rgbtRed = 255;
+            }
+            else
+            {
+                tempimage[i][j].rgbtRed = sum[2];
+            }
         }
     }
 
