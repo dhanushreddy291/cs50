@@ -102,16 +102,16 @@ int main(int argc, string argv[])
 bool vote(int rank, string name, int ranks[])
 {
     // TODO
-    for(int i = 0 ; i < candidate_count ; i++)
+    for(int p = 0 ; p < candidate_count ; p++)
     {
-        if (strcmp(candidates[i] , name) == 0)
+        if (strcmp(candidates[p] , name) == 0)
         {
-            ranks[i] = rank ;
+            ranks[p] = rank ;
             return true ;
 
         }
     }
-    
+
     return false;
 }
 
@@ -123,7 +123,7 @@ void record_preferences(int ranks[])
 
         for (int i = 0; i < candidate_count-1; i++)
         {
-            for(int j = i+1; j < candidate_count; j++)
+            for(int j = i+1; j < candidate_count && j != ranks[i]; j++)
             {
                 preferences[ranks[i]][ranks[j]]++;
             }
@@ -194,7 +194,7 @@ void sort_pairs(void)
 void lock_pairs(void)
 {
     // TODO
-    
+
     for (int i = 0; i < pair_count; i++)
     {
         locked[pairs[i].winner][pairs[i].loser] = true;
