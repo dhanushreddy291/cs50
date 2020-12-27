@@ -36,7 +36,7 @@ void print_winner(void);
 
 int main(int argc, string argv[])
 {
-    // Check for invalid usage
+    // Checks for invalid usage
     if (argc < 2)
     {
         printf("Usage: tideman [candidate ...]\n");
@@ -55,7 +55,7 @@ int main(int argc, string argv[])
         candidates[i] = argv[i + 1];
     }
 
-    // Clear graph of locked in pairs
+    // Clear graph of locked in pairs and initializes all elements in preferences.
     for (int i = 0; i < candidate_count; i++)
     {
         for (int j = 0; j < candidate_count; j++)
@@ -98,20 +98,22 @@ int main(int argc, string argv[])
     return 0;
 }
 
-// Update ranks given a new vote
+// Updates ranks given a new vote
 bool vote(int rank, string name, int ranks[])
 {
-    // TODO
-    for(int p = 0 ; p < candidate_count ; p++)
+    //Finds the index of the candidate in the candidates[] list
+    for (int p = 0 ; p < candidate_count ; p++)
     {
         if (strcmp(candidates[p] , name) == 0)
         {
             ranks[rank] = p;
+            //Returns true if the candidates name is found in the candidates[] list.
             return true;
 
         }
     }
 
+    //Returns false if the candidate entered a name which isn't in candidates[] list.
     return false;
 }
 
@@ -123,8 +125,9 @@ void record_preferences(int ranks[])
 
         for (int i = 0; i < candidate_count-1; i++)
         {
-            for(int j = i+1; j < candidate_count; j++)
+            for (int j = i+1; j < candidate_count; j++)
             {
+                //Increments only those values of elements in preferences where one candidate is preferred over the other.
                 preferences[ranks[i]][ranks[j]]++;
             }
         }
@@ -135,8 +138,6 @@ void record_preferences(int ranks[])
 // Record pairs of candidates where one is preferred over the other
 void add_pairs(void)
 {
-    // TODO
-
     for (int i = 0; i < candidate_count - 1; i++)
     {
         for (int j = i+1 ; j < candidate_count ; j++)
@@ -144,12 +145,14 @@ void add_pairs(void)
             if (preferences[i][j] > preferences[j][i])
             {
                 pairs[pair_count].winner = i;
+                //Increments pair_count after running below code.
                 pairs[pair_count++].loser = j;
 
             }
             else if (preferences[i][j] < preferences[j][i])
             {
                 pairs[pair_count].winner = j;
+                //Increments pair_count after running below code.
                 pairs[pair_count++].loser = i;
 
             }
@@ -162,15 +165,14 @@ void add_pairs(void)
 // Sort pairs in decreasing order by strength of victory
 void sort_pairs(void)
 {
-    // TODO
-
+    //For storing a pair temporarily.
     pair tmp;
 
-    for(int i = 0; i < pair_count - 1; i++)
+    for (int i = 0; i < pair_count - 1; i++)
     {
-        for(int j = 0; j < pair_count - i - 1; j++)
+        for (int j = 0; j < pair_count - i - 1; j++)
         {
-            if(preferences[pairs[j].winner][pairs[j].loser] < preferences[pairs[j + 1].winner][pairs[j + 1].loser])
+            if (preferences[pairs[j].winner][pairs[j].loser] < preferences[pairs[j + 1].winner][pairs[j + 1].loser])
             {
                 tmp.winner = pairs[j].winner;
                 tmp.loser = pairs[j].loser;
@@ -191,8 +193,6 @@ void sort_pairs(void)
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-    // TODO
-
     for (int i = 0; i < pair_count; i++)
     {
         locked[pairs[i].winner][pairs[i].loser] = true;
@@ -203,7 +203,27 @@ void lock_pairs(void)
 // Print the winner of the election
 void print_winner(void)
 {
-    // TODO
-    return;
-}
 
+    bool k = 0;
+    for(int i = 0; i < candidate_count; i++)
+    {
+        k = 1;
+        for(int j = 0; j < candidate_count; j++)
+        {
+            if(locked[j][i] == true)
+            {
+                k = 0;
+                break;
+            }
+
+        }
+
+        if(k == 1)
+        {
+            printf("%s\n" , candidates[i]);
+            return;
+        }
+
+    }
+
+}
