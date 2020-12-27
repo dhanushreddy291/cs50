@@ -201,16 +201,22 @@ void lock_pairs(void)
         int count = 0;
         for (int j = 0; j < candidate_count; j++)
         {
+            bool pp = 0;
             for (int k = 0; k < candidate_count; k++)
             {
                 if (locked[k][j] == true)
                 {
-                    count++;
-                    continue;
+                    pp = 1;
 
                 }
             }
 
+            if(pp)
+            {
+                count++;
+                
+            }
+            
             if (count == candidate_count - 1)
             {
                 return;
