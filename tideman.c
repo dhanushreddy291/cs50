@@ -104,7 +104,7 @@ bool vote(int rank, string name, int ranks[])
     //Finds the index of the candidate in the candidates[] list
     for (int p = 0 ; p < candidate_count ; p++)
     {
-        if (strcmp(candidates[p] , name) == 0)
+        if (strcmp(candidates[p], name) == 0)
         {
             ranks[rank] = p;
             //Returns true if the candidates name is found in the candidates[] list.
@@ -123,14 +123,14 @@ void record_preferences(int ranks[])
     // TODO
     int temp = 0 ;
 
-        for (int i = 0; i < candidate_count-1; i++)
+    for (int i = 0; i < candidate_count - 1; i++)
+    {
+        for (int j = i + 1; j < candidate_count; j++)
         {
-            for (int j = i+1; j < candidate_count; j++)
-            {
-                //Increments only those values of elements in preferences where one candidate is preferred over the other.
-                preferences[ranks[i]][ranks[j]]++;
-            }
+            //Increments only those values of elements in preferences where one candidate is preferred over the other.
+            preferences[ranks[i]][ranks[j]]++;
         }
+    }
 
     return;
 }
@@ -140,7 +140,7 @@ void add_pairs(void)
 {
     for (int i = 0; i < candidate_count - 1; i++)
     {
-        for (int j = i+1 ; j < candidate_count ; j++)
+        for (int j = i + 1 ; j < candidate_count ; j++)
         {
             if (preferences[i][j] > preferences[j][i])
             {
@@ -193,10 +193,39 @@ void sort_pairs(void)
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
+    int count = 0;
+    bool stopper = 0;
+
     for (int i = 0; i < pair_count; i++)
     {
         locked[pairs[i].winner][pairs[i].loser] = true;
+
+
+        for (int j = 0; j < candidate_count; j++)
+        {
+            for (int k = 0; k < candidate_count; k++)
+            {
+                if (locked[k][j] == true)
+                {
+                    count++;
+                    break;
+
+                }
+            }
+
+            if (count == candidate_count - 1)
+            {
+                stopper = 1;
+                break;
+            }
+        }
+
+        if (stopper)
+        {
+            return;
+        }
     }
+
     return;
 }
 
@@ -205,12 +234,12 @@ void print_winner(void)
 {
 
     bool k = 0;
-    for(int i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
         k = 1;
-        for(int j = 0; j < candidate_count; j++)
+        for (int j = 0; j < candidate_count; j++)
         {
-            if(locked[j][i] == true)
+            if (locked[j][i] == true)
             {
                 k = 0;
                 break;
@@ -218,9 +247,9 @@ void print_winner(void)
 
         }
 
-        if(k == 1)
+        if (k == 1)
         {
-            printf("%s\n" , candidates[i]);
+            printf("%s\n", candidates[i]);
             return;
         }
 
