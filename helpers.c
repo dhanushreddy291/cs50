@@ -76,31 +76,31 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             sum[2] = sum[2] / ((1.00) * counter);
 
 
-            if (sum[0] > 255)
+            if (sum[0] >= 255)
             {
                 tempimage[i][j].rgbtBlue = 255;
             }
             else
             {
-                tempimage[i][j].rgbtBlue = (int)sum[0];
+                tempimage[i][j].rgbtBlue = round(sum[0]);
             }
 
-            if (sum[1] > 255)
+            if (sum[1] >= 255)
             {
                 tempimage[i][j].rgbtGreen = 255;
             }
             else
             {
-                tempimage[i][j].rgbtGreen = (int)sum[1];
+                tempimage[i][j].rgbtGreen = round(sum[1]);
             }
 
-            if (sum[2] > 255)
+            if (sum[2] >= 255)
             {
                 tempimage[i][j].rgbtRed = 255;
             }
             else
             {
-                tempimage[i][j].rgbtRed = (int)sum[2];
+                tempimage[i][j].rgbtRed = round(sum[2]);
             }
         }
     }
