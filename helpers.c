@@ -58,7 +58,8 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            double sum[3] = {0, 0, 0}, counter = 0;
+            double sum[3] = {0, 0, 0};
+            int counter = 0;
 
             for (int k = i - 1; (k >= 0 && k < height) && k < i + 2; k++)
             {
@@ -71,9 +72,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 }
             }
 
-            sum[0] = sum[0] / ((1.00) * counter);
-            sum[1] = sum[1] / ((1.00) * counter);
-            sum[2] = sum[2] / ((1.00) * counter);
+            sum[0] /= counter;
+            sum[1] /= counter;
+            sum[2] /= counter;
 
 
             if (sum[0] >= 255)
@@ -169,22 +170,22 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
         {
             double sum[9];
 
-            sum[0] = (-tmpimage[i - 1][j - 1].rgbtBlue) + (tmpimage[i - 1][j + 1].rgbtBlue) - (2 * tmpimage[i][j - 1].rgbtBlue) + 
+            sum[0] = (-tmpimage[i - 1][j - 1].rgbtBlue) + (tmpimage[i - 1][j + 1].rgbtBlue) - (2 * tmpimage[i][j - 1].rgbtBlue) +
                      (2 * tmpimage[i][j + 1].rgbtBlue) - (tmpimage[i + 1][j - 1].rgbtBlue) + (tmpimage[i + 1][j + 1].rgbtBlue);
-                     
-            sum[1] = (-tmpimage[i - 1][j - 1].rgbtGreen) + (tmpimage[i - 1][j + 1].rgbtGreen) - (2 * tmpimage[i][j - 1].rgbtGreen) + 
+
+            sum[1] = (-tmpimage[i - 1][j - 1].rgbtGreen) + (tmpimage[i - 1][j + 1].rgbtGreen) - (2 * tmpimage[i][j - 1].rgbtGreen) +
                      (2 * tmpimage[i][j + 1].rgbtGreen) - (tmpimage[i + 1][j - 1].rgbtGreen) + (tmpimage[i + 1][j + 1].rgbtGreen);
-                     
-            sum[2] = (-tmpimage[i - 1][j - 1].rgbtRed) + (tmpimage[i - 1][j + 1].rgbtRed) - (2 * tmpimage[i][j - 1].rgbtRed) + 
+
+            sum[2] = (-tmpimage[i - 1][j - 1].rgbtRed) + (tmpimage[i - 1][j + 1].rgbtRed) - (2 * tmpimage[i][j - 1].rgbtRed) +
                      (2 * tmpimage[i][j + 1].rgbtRed) - (tmpimage[i + 1][j - 1].rgbtRed) + (tmpimage[i + 1][j + 1].rgbtRed);
 
-            sum[3] = (-tmpimage[i - 1][j - 1].rgbtBlue) - (2 * tmpimage[i - 1][j].rgbtBlue) - (tmpimage[i - 1][j + 1].rgbtBlue) + 
+            sum[3] = (-tmpimage[i - 1][j - 1].rgbtBlue) - (2 * tmpimage[i - 1][j].rgbtBlue) - (tmpimage[i - 1][j + 1].rgbtBlue) +
                      (tmpimage[i + 1][j - 1].rgbtBlue) + (2 * tmpimage[i + 1][j].rgbtBlue) + (tmpimage[i + 1][j + 1].rgbtBlue);
-                     
-            sum[4] = (-tmpimage[i - 1][j - 1].rgbtGreen) - (2 * tmpimage[i - 1][j].rgbtGreen) - (tmpimage[i - 1][j + 1].rgbtGreen) + 
+
+            sum[4] = (-tmpimage[i - 1][j - 1].rgbtGreen) - (2 * tmpimage[i - 1][j].rgbtGreen) - (tmpimage[i - 1][j + 1].rgbtGreen) +
                      (tmpimage[i + 1][j - 1].rgbtGreen) + (2 * tmpimage[i + 1][j].rgbtGreen) + (tmpimage[i + 1][j + 1].rgbtGreen);
-                     
-            sum[5] = (-tmpimage[i - 1][j - 1].rgbtRed) - (2 * tmpimage[i - 1][j].rgbtRed) - (tmpimage[i - 1][j + 1].rgbtRed) + 
+
+            sum[5] = (-tmpimage[i - 1][j - 1].rgbtRed) - (2 * tmpimage[i - 1][j].rgbtRed) - (tmpimage[i - 1][j + 1].rgbtRed) +
                      (tmpimage[i + 1][j - 1].rgbtRed) + (2 * tmpimage[i + 1][j].rgbtRed) + (tmpimage[i + 1][j + 1].rgbtRed);
 
 
