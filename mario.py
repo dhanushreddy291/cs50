@@ -1,6 +1,6 @@
 from cs50 import get_int
 
-#Loop doesnot exit until the user inputs a number between 1 to 8 inclusive
+# Loop doesnot exit until the user inputs a number between 1 to 8 inclusive
 while True:
     height = get_int("Height : ")
     if 0 < height < 9:
