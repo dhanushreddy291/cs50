@@ -6,14 +6,14 @@ while True:
     if 0 < height < 9:
         break
 
-#A loop to print require Pyramid
+# A loop to print require Pyramid
 for i in range(height):
     
-    #Prints white spaces
+    # Prints white spaces
     for j in range(height - i - 1):
         print(" ", end="")
     
-    #Prints #
+    # Prints '#'
     for k in range(i + 1):
         print("#", end="")
     print()    
