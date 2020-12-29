@@ -11,7 +11,7 @@ index = 0
 # A For Loop for counting the number of letters, words and sentences.
 for ch in text:
     
-    #The isalpha() method returns True if character is an alphabet
+    # The isalpha() method returns True if character is an alphabet
     if ch.isalpha() == 1:
         lettercount += 1
     elif ch == " ":
