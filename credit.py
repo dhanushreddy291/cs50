@@ -8,12 +8,13 @@ sum = 0
 
 # Finding the sum using Luhn's credit card algorithm validator
 for i in range(size):
-    if i%2 == 0:
+    if i % 2 == 0:
         sum += int(cardnumber[size - i - 1])
     else:
         temp = 2 * int(cardnumber[size - i - 1])
-        sum += int(temp/10) + int(temp%10)
+        sum += int(temp/10) + int(temp % 10)
 
+print(f'sum = {sum} ,size = {size}, hundredsplace = {hundredsplace}')
 if size == 13 or size == 15 or size == 16:
 
     if sum % 10 == 0:
@@ -29,7 +30,7 @@ if size == 13 or size == 15 or size == 16:
             exit(0)
         
         # Checks if  Card is a valid VISA Card.
-        elif (size == 13 or size == 16) and hundredsplace / 10 == 4:
+        elif (size == 13 or size == 16) and int(hundredsplace / 10) == 4:
             print("VISA")
             exit(0)
 
