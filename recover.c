@@ -18,13 +18,13 @@ int main(int argc, char *argv[])
     }
 
     FILE *outptr = NULL;
-    int count = 1, foundjpeg = 0, firstjpeg = 1;
+    int count = 0, foundjpeg = 0, firstjpeg = 1;
     char filename[8];
-    char buffer[512];
+    unsigned char buffer[512];
 
     while (fread(buffer, 512, 1, inptr) == 1)
     {
-        if ((buffer[0] - '0') == 0xff && (buffer[1] - '0') == 0xd8 && (buffer[2] - '0') == 0xff && ((buffer[3] - '0') & 0xf0) == 0xe0)
+        if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0)
         {
             if(firstjpeg)
             {
@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
             else
             {
                 sprintf(filename, "%03i.jpg", count++);
+                fclose(outptr);
                 outptr = fopen(filename, "a");
                 fwrite(buffer, 512, 1, outptr);
 
@@ -52,6 +53,8 @@ int main(int argc, char *argv[])
         }
     }
 
+fclose(outptr);
+fclose(inptr);
 
         return 0;
 }
