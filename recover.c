@@ -62,13 +62,11 @@ int main(int argc, char *argv[])
         }
         else if (foundjpeg)
         {
-            //outptr = fopen(filename, "a");
             fwrite(buffer, 512, 1, outptr);
-
         }
     }
 
-//Closes all the Files before the program ends.
+    //Closes all the Files before the program ends.
     fclose(outptr);
     fclose(inptr);
 
